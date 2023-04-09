@@ -1,0 +1,37 @@
+{% load i18n %}
+
+<ul class="list-group">
+    {% for task in phones.task_set.all %}
+    <li class="list-group-item d-flex">
+        <form method="post" action="{% url 'task_update' task.id %}" class="my-auto me-2">
+            {% csrf_token %}
+            <input
+                    class="form-check-input"
+                    type="checkbox",
+                    name="is_completed",
+                    {% if task.is_completed %} checked {% endif %}
+                    anchange="this.form.submit"
+            >
+        </form>
+        <p class="my-auto me-auto">
+            {{ task.description }}
+        </p>
+        <form method="post" action="{% url 'task_delete' task.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn"><i class="bi bi-trash text-danger"></i></button>
+        </form>
+   </li>
+
+
+    {% endfor %}
+</ul>
+    <div class="card mt-2">
+        <form method="post" action="{% url 'task_create' %}" class="d-flex">
+            {% csrf_token %}
+           <div class="input-group">
+                <input type="hidden" value="{{ phones.id }}" name="phones">
+                <input type="text" placeholder="{% trans 'new task' %}" name="description" class="form-control">
+                <input type="submit" class="btn-outline-dark" value="{% trans 'Add' %}">
+           </div>
+        </form>
+    </div>
