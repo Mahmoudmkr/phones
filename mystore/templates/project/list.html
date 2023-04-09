@@ -58,6 +58,39 @@
                         </div>
                    </div>
             {% endfor %}
-
+            {% if page_obj.paginator.count > 0 %}
+               <div class="d-flex justify-content-center bd-hightlight mb-3">
+                   <nav>
+                       <ul class="pagination">
+                           {% if page_obj.has_previous %}
+                               <li class="page-items">
+                                   <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                       {% trans 'Previous' %}
+                                   </a>
+                               </li>
+                           {% else %}
+                               <li class="page-items disabled">
+                                   <a class="page-link" href="#">
+                                       {% trans 'Previous' %}
+                                   </a>
+                               </li>
+                           {% endif %}
+                           {% if page_obj.has_next %}
+                               <li class="page-items">
+                                   <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                       {% trans 'next' %}
+                                   </a>
+                               </li>
+                           {% else %}
+                               <li class="page-items disabled">
+                                   <a class="page-link" href="#">
+                                       {% trans 'next' %}
+                                   </a>
+                               </li>
+                           {% endif %}
+                       </ul>
+                   </nav>
+               </div>
+            {% endif %}
     </div>
 {% endblock %}
